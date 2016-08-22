@@ -13,7 +13,7 @@ exports.readAdcTemp = function (probe, callback) {
 
 	var channel = probe.channel;
 
-	etobiShield.readAdcValue(channel, function (channel, value) {
+	exports.readAdcValue(channel, function (channel, value) {
 		if (value === 0) return 999.9;
 
 		var tempResistor = probe.resistor * ((probe.maxvalue / value) - 1);
