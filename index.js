@@ -1,5 +1,13 @@
+var McpAdc = require('mcp-adc'),
+		adc = new McpAdc.Mcp3208();
 
 exports.readAdcValue = function (channel, callback) {
+	adc.readRawValue(channel, function (value) {
+		if (callback) {
+			callback(channel, value);
+		}
+	});
+	/*
 	// TODO
 	var max = 620,
 			min = 590;
@@ -7,6 +15,7 @@ exports.readAdcValue = function (channel, callback) {
 	if (callback) {
 		callback(channel, value);
 	}
+	*/
 };
 
 exports.readAdcTemp = function (probe, callback) {
