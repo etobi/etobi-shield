@@ -1,21 +1,31 @@
-var McpAdc = require('mcp-adc'),
-		adc = new McpAdc.Mcp3208();
+var fs = require('fs');
+var McpAdc = require('mcp-adc');
+var adc;
+
+try {
+    fs.accessSync('/dev/spidev0.0', fs.F_OK);
+
+	adc = new McpAdc.Mcp3208();
+} catch (e) {
+    console.warn('SPI device /dev/spidev0.0 not found. Will simulate ADC.');
+}
 
 exports.readAdcValue = function (channel, callback) {
-	adc.readRawValue(channel, function (value) {
+	if (adc) {
+		adc.readRawValue(channel, function (value) {
+			if (callback) {
+				callback(channel, value);
+			}
+		});
+	} else {
+		// TODO
+		var max = 800,
+			min = 550;
+		var value = Math.floor(Math.random() * (max - min + 1) + min);
 		if (callback) {
 			callback(channel, value);
 		}
-	});
-	/*
-	// TODO
-	var max = 620,
-			min = 590;
-	var value = Math.floor(Math.random() * (max - min + 1) + min);
-	if (callback) {
-		callback(channel, value);
 	}
-	*/
 };
 
 exports.readAdcTemp = function (probe, callback) {
