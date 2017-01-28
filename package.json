@@ -14,7 +14,8 @@
   "dependencies": {
     "mcp-adc": "etobi/mcp-adc",
     "spi": "etobi/node-spi",
-    "fs": ""
+    "fs": "",
+    "onoff": ""
   },
   "author": "Tobias Liebig",
   "license": "ISC"
