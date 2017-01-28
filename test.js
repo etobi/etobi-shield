@@ -8,3 +8,20 @@ shield.readAdcValue(0, function (channel, value) {
 shield.readAdcValue(1, function (channel, value) {
 	console.log('Ch#1: ' + value);
 });
+
+shield.onButton1(function (value) {
+	console.log('button1: ' + value);
+	shield.led(1, value);
+});
+shield.onButton2(function (value) {
+	console.log('button2: ' + value);
+	shield.led(2, value);
+});
+shield.onButton3(function (value) {
+	console.log('button3: ' + value);
+	shield.led(3, value);
+});
+shield.onButton4(function (value) {
+	console.log('button4: ' + value);
+	shield.led(4, value);
+});

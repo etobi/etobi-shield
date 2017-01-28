@@ -2,11 +2,23 @@ var fs = require('fs');
 var McpAdc = require('mcp-adc');
 var adc;
 
+// TODO, i2c, 1wire
+
 var Gpio = require('onoff').Gpio,
-  led1 = new Gpio(14, 'out'),
-  led2 = new Gpio(15, 'out'),
-  led3 = new Gpio(18, 'out'),
-  led4 = new Gpio(27, 'out');
+		leds = {},
+		ledGpioMap = {
+			1: 14,
+			2: 15,
+			3: 18,
+			4: 27
+		},
+		buttonGpioMap = {
+			1: 23,
+			2: 22,
+			3: 24,
+			4: 25
+		},
+		buttons = {};
 
 try {
     fs.accessSync('/dev/spidev0.0', fs.F_OK);
@@ -58,27 +70,70 @@ exports.readAdcTemp = function (probe, callback) {
 	});
 };
 
+var getLed = function(index) {
+	if (!leds.hasOwnProperty(index) && ledGpioMap.hasOwnProperty(index)) {
+		leds[index] = new Gpio(ledGpioMap[index], 'out')
+	}
+	return leds[index];
+};
+var getButton = function(index) {
+	if (!buttons.hasOwnProperty(index) && buttonGpioMap.hasOwnProperty(index)) {
+		buttons[index] = new Gpio(buttonGpioMap[index], 'in', 'both');
+	}
+	return buttons[index];
+};
+
+exports.led = function(index, value) {
+	getLed(index).writeSync(index);
+};
+exports.ledOn = function(index) {
+	exports.led(index, 1);
+};
+exports.ledOff = function() {
+	exports.led(index, 0);
+};
 exports.led1On = function() {
-	led1.writeSync(1);
+	exports.ledOn(1);
 };
 exports.led1Off = function() {
-	led1.writeSync(0);
+	exports.ledOff(1);
 };
 exports.led2On = function() {
-	led2.writeSync(1);
+	exports.ledOn(2);
 };
 exports.led2Off = function() {
-	led2.writeSync(0);
+	exports.ledOff(2);
 };
 exports.led3On = function() {
-	led3.writeSync(1);
+	exports.ledOn(3);
 };
 exports.led3Off = function() {
-	led3.writeSync(0);
+	exports.ledOff(3);
 };
 exports.led4On = function() {
-	led4.writeSync(1);
+	exports.ledOn(4);
 };
 exports.led4Off = function() {
-	led4.writeSync(0);
+	exports.ledOff(4);
+};
+
+exports.onButton = function (index, callback) {
+	if (callback) {
+		var button = getButton(index);
+		button.watch(function(err, value) {
+			callback(value);
+		});
+	}
+};
+exports.onButton1 = function (callback) {
+	exports.onButton(1, callback);
+};
+exports.onButton2 = function (callback) {
+	exports.onButton(2, callback);
+};
+exports.onButton3 = function (callback) {
+	exports.onButton(3, callback);
+};
+exports.onButton4 = function (callback) {
+	exports.onButton(4, callback);
 };
