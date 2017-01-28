@@ -18,12 +18,8 @@ exports.readAdcValue = function (channel, callback) {
 			}
 		});
 	} else {
-		// TODO
-		var max = 800,
-			min = 550;
-		var value = Math.floor(Math.random() * (max - min + 1) + min);
 		if (callback) {
-			callback(channel, value);
+			callback(channel, undefined);
 		}
 	}
 };
@@ -33,7 +29,11 @@ exports.readAdcTemp = function (probe, callback) {
 	var channel = probe.channel;
 
 	exports.readAdcValue(channel, function (channel, value) {
-		if (value === 0) return 999.9;
+		if (value == undefined || value === 0) {
+			if (callback) {
+				callback(channel, undefined);
+			}
+		}
 
 		var tempResistor = probe.resistor * ((probe.maxvalue / value) - 1);
 		var volts = Math.log(tempResistor / probe.rn);
