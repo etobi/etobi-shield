@@ -84,12 +84,12 @@ var getButton = function(index) {
 };
 
 exports.led = function(index, value) {
-	getLed(index).writeSync(index);
+	getLed(index).writeSync(value);
 };
 exports.ledOn = function(index) {
 	exports.led(index, 1);
 };
-exports.ledOff = function() {
+exports.ledOff = function(index) {
 	exports.led(index, 0);
 };
 exports.led1On = function() {
