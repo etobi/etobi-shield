@@ -1,3 +1,8 @@
+# Setup tips
+
+## setup 1wire
+ 
+
 ## Setup DT
 
 ```

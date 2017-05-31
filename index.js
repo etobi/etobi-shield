@@ -28,7 +28,7 @@ try {
     console.warn('SPI device /dev/spidev0.0 not found. Will simulate ADC.');
 }
 
-exports.readAdcValue = function (channel, callback) {
+module.exports.readAdcValue = function (channel, callback) {
 	if (adc) {
 		adc.readRawValue(channel, function (value) {
 			if (callback) {
@@ -42,11 +42,11 @@ exports.readAdcValue = function (channel, callback) {
 	}
 };
 
-exports.readAdcTemp = function (probe, callback) {
+module.exports.readAdcTemp = function (probe, callback) {
 
 	var channel = probe.channel;
 
-	exports.readAdcValue(channel, function (channel, value) {
+	module.exports.readAdcValue(channel, function (channel, value) {
 		if (value == undefined || value === 0) {
 			if (callback) {
 				callback(channel, undefined);
@@ -83,41 +83,41 @@ var getButton = function(index) {
 	return buttons[index];
 };
 
-exports.led = function(index, value) {
+module.exports.led = function(index, value) {
 	getLed(index).writeSync(value);
 };
-exports.ledOn = function(index) {
-	exports.led(index, 1);
+module.exports.ledOn = function(index) {
+	module.exports.led(index, 1);
 };
-exports.ledOff = function(index) {
-	exports.led(index, 0);
+module.exports.ledOff = function(index) {
+	module.exports.led(index, 0);
 };
-exports.led1On = function() {
-	exports.ledOn(1);
+module.exports.led1On = function() {
+	module.exports.ledOn(1);
 };
-exports.led1Off = function() {
-	exports.ledOff(1);
+module.exports.led1Off = function() {
+	module.exports.ledOff(1);
 };
-exports.led2On = function() {
-	exports.ledOn(2);
+module.exports.led2On = function() {
+	module.exports.ledOn(2);
 };
-exports.led2Off = function() {
-	exports.ledOff(2);
+module.exports.led2Off = function() {
+	module.exports.ledOff(2);
 };
-exports.led3On = function() {
-	exports.ledOn(3);
+module.exports.led3On = function() {
+	module.exports.ledOn(3);
 };
-exports.led3Off = function() {
-	exports.ledOff(3);
+module.exports.led3Off = function() {
+	module.exports.ledOff(3);
 };
-exports.led4On = function() {
-	exports.ledOn(4);
+module.exports.led4On = function() {
+	module.exports.ledOn(4);
 };
-exports.led4Off = function() {
-	exports.ledOff(4);
+module.exports.led4Off = function() {
+	module.exports.ledOff(4);
 };
 
-exports.onButton = function (index, callback) {
+module.exports.onButton = function (index, callback) {
 	if (callback) {
 		var button = getButton(index);
 		button.watch(function(err, value) {
@@ -125,15 +125,15 @@ exports.onButton = function (index, callback) {
 		});
 	}
 };
-exports.onButton1 = function (callback) {
-	exports.onButton(1, callback);
+module.exports.onButton1 = function (callback) {
+	module.exports.onButton(1, callback);
 };
-exports.onButton2 = function (callback) {
-	exports.onButton(2, callback);
+module.exports.onButton2 = function (callback) {
+	module.exports.onButton(2, callback);
 };
-exports.onButton3 = function (callback) {
-	exports.onButton(3, callback);
+module.exports.onButton3 = function (callback) {
+	module.exports.onButton(3, callback);
 };
-exports.onButton4 = function (callback) {
-	exports.onButton(4, callback);
+module.exports.onButton4 = function (callback) {
+	module.exports.onButton(4, callback);
 };
