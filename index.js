@@ -4,7 +4,7 @@ var adc;
 
 // TODO, i2c, 1wire
 
-var Gpio = require('onoff').Gpio,
+var Gpio = null,
 		leds = {},
 		ledGpioMap = {
 			1: 14,
@@ -19,13 +19,38 @@ var Gpio = require('onoff').Gpio,
 			4: 25
 		},
 		buttons = {};
+try {
+	Gpio = require('onoff').Gpio;
+} catch (e) {
+	console.warn('GPIO not found. Will simulate GPIO.');
+	Gpio = function (port, direction, edge, options) {
+		this.read = function(callback) {};
+		this.readSync = function() {};
+		this.write = function(value, callback) {
+			console.log('GPIO(' + port + ', ' + direction + ').write(' + value + ')');
+		};
+		this.writeSync = function(value) {
+			console.log('GPIO(' + port + ', ' + direction + ').writeSync(' + value + ')');
+		};
+		this.watch = function(callback) {};
+		this.unwatch = function(callback) {};
+		this.unwatchAll = function() {};
+		this.direction = function() {};
+		this.setDirection = function(direction) {};
+		this.edge = function() {};
+		this.setEdge = function(edge) {};
+		this.activeLow = function() {};
+		this.setActiveLow = function(invert) {};
+		this.unexport = function() {};
+	}
+}
 
 try {
-    fs.accessSync('/dev/spidev0.0', fs.F_OK);
+	fs.accessSync('/dev/spidev0.0', fs.F_OK);
 
 	adc = new McpAdc.Mcp3208();
 } catch (e) {
-    console.warn('SPI device /dev/spidev0.0 not found. Will simulate ADC.');
+	console.warn('SPI device /dev/spidev0.0 not found. Will simulate ADC.');
 }
 
 module.exports.readAdcValue = function (channel, callback) {
@@ -70,59 +95,64 @@ module.exports.readAdcTemp = function (probe, callback) {
 	});
 };
 
-var getLed = function(index) {
+var getLed = function (index) {
 	if (!leds.hasOwnProperty(index) && ledGpioMap.hasOwnProperty(index)) {
 		leds[index] = new Gpio(ledGpioMap[index], 'out')
 	}
 	return leds[index];
 };
-var getButton = function(index) {
+var getButton = function (index) {
 	if (!buttons.hasOwnProperty(index) && buttonGpioMap.hasOwnProperty(index)) {
 		buttons[index] = new Gpio(buttonGpioMap[index], 'in', 'both');
 	}
 	return buttons[index];
 };
 
-module.exports.led = function(index, value) {
-	getLed(index).writeSync(value);
+module.exports.led = function (index, value) {
+	var led = getLed(index);
+	if (led) {
+		led.writeSync(value);
+	}
 };
-module.exports.ledOn = function(index) {
+module.exports.ledOn = function (index) {
 	module.exports.led(index, 1);
 };
-module.exports.ledOff = function(index) {
+module.exports.ledOff = function (index) {
 	module.exports.led(index, 0);
 };
-module.exports.led1On = function() {
+module.exports.led1On = function () {
 	module.exports.ledOn(1);
 };
-module.exports.led1Off = function() {
+module.exports.led1Off = function () {
 	module.exports.ledOff(1);
 };
-module.exports.led2On = function() {
+module.exports.led2On = function () {
 	module.exports.ledOn(2);
 };
-module.exports.led2Off = function() {
+module.exports.led2Off = function () {
 	module.exports.ledOff(2);
 };
-module.exports.led3On = function() {
+module.exports.led3On = function () {
 	module.exports.ledOn(3);
 };
-module.exports.led3Off = function() {
+module.exports.led3Off = function () {
 	module.exports.ledOff(3);
 };
-module.exports.led4On = function() {
+module.exports.led4On = function () {
 	module.exports.ledOn(4);
 };
-module.exports.led4Off = function() {
+module.exports.led4Off = function () {
 	module.exports.ledOff(4);
 };
 
 module.exports.onButton = function (index, callback) {
 	if (callback) {
 		var button = getButton(index);
-		button.watch(function(err, value) {
-			callback(value);
-		});
+		if (button) {
+			button.watch(function (err, value) {
+				callback(value);
+			});
+		}
 	}
 };
 module.exports.onButton1 = function (callback) {
