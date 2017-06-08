@@ -18,7 +18,7 @@ var createOled = function () {
 module.exports = {
 	oled: createOled(),
 	writeLine: function (line, text) {
-		oled.setCursor(1, 1 + (line * 8));
-		oled.writeString(font, 1, String(text), 1, false);
+		module.exports.oled.setCursor(1, 1 + (line * 8));
+		module.exports.oled.writeString(font, 1, String(text), 1, false);
 	}
 };
