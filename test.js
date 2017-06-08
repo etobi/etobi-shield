@@ -25,3 +25,11 @@ shield.onButton4(function (value) {
 	console.log('button4: ' + value);
 	shield.led(4, 1 - value);
 });
+
+shield.oled().clearDisplay();
+shield.oled().drawPixel([
+    [128, 1, 1],
+    [128, 32, 1],
+    [128, 16, 1],
+    [64, 16, 1]
+]);

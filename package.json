@@ -1,6 +1,6 @@
 {
   "name": "etobi-shield",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "private": true,
@@ -15,7 +15,10 @@
     "mcp-adc": "etobi/mcp-adc",
     "spi": "etobi/node-spi",
     "fs": "",
-    "onoff": ""
+    "onoff": "",
+    "i2c": "*",
+    "oled-ssd1306-i2c": "*",
+    "oled-font-5x7": "*"
   },
   "author": "Tobias Liebig",
   "license": "ISC"

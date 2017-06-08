@@ -180,3 +180,17 @@ module.exports.onButton3 = function (callback) {
 module.exports.onButton4 = function (callback) {
 	module.exports.onButton(4, callback);
 };
+
+var display = null;
+module.exports.oled = function () {
+	if (display == null) {
+		var oled = require('oled-ssd1306-i2c');
+		var opts = {
+			width: 128,
+			height: 64
+		};
+
+		display = new oled(opts);
+	}
+	return display;
+};
