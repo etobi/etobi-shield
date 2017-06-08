@@ -26,10 +26,9 @@ shield.onButton4(function (value) {
 	shield.led(4, 1 - value);
 });
 
-var display = shield.display();
-display.oled.turnOffDisplay();
+shield.display.oled.turnOffDisplay();
 setTimeout(function(){
-	display.oled.turnOnDisplay();
+	shield.display.oled.turnOnDisplay();
 }, 1000);
 
 shield.display.writeLine(0, '0123456789 1234567');
