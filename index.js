@@ -19,29 +19,42 @@ var Gpio = null,
 			4: 25
 		},
 		buttons = {};
+
 try {
 	Gpio = require('onoff').Gpio;
 } catch (e) {
 	console.warn('GPIO not found. Will simulate GPIO.');
 	Gpio = function (port, direction, edge, options) {
-		this.read = function(callback) {};
-		this.readSync = function() {};
-		this.write = function(value, callback) {
+		this.read = function (callback) {
+		};
+		this.readSync = function () {
+		};
+		this.write = function (value, callback) {
 			console.log('GPIO(' + port + ', ' + direction + ').write(' + value + ')');
 		};
-		this.writeSync = function(value) {
+		this.writeSync = function (value) {
 			console.log('GPIO(' + port + ', ' + direction + ').writeSync(' + value + ')');
 		};
-		this.watch = function(callback) {};
-		this.unwatch = function(callback) {};
-		this.unwatchAll = function() {};
-		this.direction = function() {};
-		this.setDirection = function(direction) {};
-		this.edge = function() {};
-		this.setEdge = function(edge) {};
-		this.activeLow = function() {};
-		this.setActiveLow = function(invert) {};
-		this.unexport = function() {};
+		this.watch = function (callback) {
+		};
+		this.unwatch = function (callback) {
+		};
+		this.unwatchAll = function () {
+		};
+		this.direction = function () {
+		};
+		this.setDirection = function (direction) {
+		};
+		this.edge = function () {
+		};
+		this.setEdge = function (edge) {
+		};
+		this.activeLow = function () {
+		};
+		this.setActiveLow = function (invert) {
+		};
+		this.unexport = function () {
+		};
 	}
 }
 
