@@ -15,7 +15,7 @@
     "mcp-adc": "etobi/mcp-adc",
     "spi": "etobi/node-spi",
     "fs": "",
-    "onoff": "",
+    "onoff": ""
   },
   "optionalDependencies": {
     "oled-ssd1306-i2c": "git+ssh://git@github.com:etobi/oled_ssd1306_i2c.git",
