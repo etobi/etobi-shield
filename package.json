@@ -17,7 +17,7 @@
     "spi": "etobi/node-spi",
     "fs": "",
     "onoff": "",
-    "oled-ssd1306-i2c": "git+ssh://git@github.com:etobi/oled_ssd1306_i2c.git",
+    "oled-ssd1306-i2c": "https://github.com/etobi/oled_ssd1306_i2c.git",
     "oled-font-5x7": "*"
   },
   "author": "Tobias Liebig",
