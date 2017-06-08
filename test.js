@@ -26,10 +26,17 @@ shield.onButton4(function (value) {
 	shield.led(4, 1 - value);
 });
 
-shield.oled().clearDisplay();
-shield.oled().drawPixel([
-    [128, 1, 1],
-    [128, 32, 1],
-    [128, 16, 1],
-    [64, 16, 1]
-]);
+var display = shield.display();
+display.oled.turnOffDisplay();
+setTimeout(function(){
+	display.oled.turnOnDisplay();
+}, 1000);
+
+shield.display.writeLine(0, '0123456789 1234567');
+shield.display.writeLine(1, '1 192.168.000.123');
+shield.display.writeLine(2, '2 äöü ÄÖÜ');
+shield.display.writeLine(3, '3 °!"§$%&/(){}<>=?');
+shield.display.writeLine(4, '4');
+shield.display.writeLine(5, '5');
+shield.display.writeLine(6, '6 000.00  |  000.00');
+shield.display.writeLine(7, '7 123.45  |  234.56');
