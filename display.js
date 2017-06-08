@@ -10,6 +10,8 @@ var createOled = function () {
 
 	var oledInstance = new Oled(opts);
 	oledInstance.turnOnDisplay();
+	oledInstance.dimDisplay();
+	oledInstance.clearDisplay();
 	oledInstance.fillRect(1, 1, 128, 64, 0);
 
 	return oledInstance;
@@ -20,5 +22,9 @@ module.exports = {
 	writeLine: function (line, text) {
 		module.exports.oled.setCursor(1, 1 + (line * 8));
 		module.exports.oled.writeString(font, 1, String(text), 1, false);
+	},
+	clearAll: function () {
+		module.exports.oled.clearDisplay();
+		module.exports.oled.fillRect(1, 1, 128, 64, 0);
 	}
 };
