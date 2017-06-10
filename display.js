@@ -1,12 +1,14 @@
-
-var Oled = require('oled-ssd1306-i2c');
-var font = require('oled-font-5x7');
+var font, Oled;
 
 var createOled = function () {
 	var opts = {
 		width: 128,
 		height: 64
 	};
+
+
+	Oled = require('oled-ssd1306-i2c');
+	font = require('oled-font-5x7');
 
 	var oledInstance = new Oled(opts);
 	oledInstance.turnOnDisplay();
