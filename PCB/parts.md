@@ -7,7 +7,7 @@
 * 1x MCP3208
     * https://www.reichelt.de/ICs-MCP-3-5-/MCP-3208-CI-P/3/index.html?ACTION=3&LA=5&ARTICLE=90079&GROUPID=5472&artnr=MCP+3208-CI%2FP
 * 1x Sockel
-    * Link auf diesen Artikel
+    * https://www.reichelt.de/IC-Sockel/GS-16P/3/index.html?ACTION=3&GROUPID=7429&ARTICLE=8209&OFFSET=16&
 * 6x Widerstand 47k Ohm
     * https://www.reichelt.de/0-6W-1-10-0-k-Ohm-95-3-k-Ohm/METALL-47-0K/3/index.html?ACTION=3&LA=5&ARTICLE=11823&GROUPID=3079&artnr=METALL+47%2C0K
 * 6x Kupplung, 2-polig
